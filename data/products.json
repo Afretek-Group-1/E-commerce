@@ -1,0 +1,125 @@
+[
+  {
+    "id": "prod-01",
+    "title": "Aura Classic Canvas Low-Top Sneakers",
+    "brand": "Aura Athletics",
+    "category": "Footwear",
+    "price": 45.00,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 128,
+    "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&q=80",
+    "description": "Timeless vulcanized low-top canvas sneakers with reinforced rubber toe caps and cushioned ortholite insoles. Built for daily comfort and durability.",
+    "colors": ["White", "Black", "Navy Blue"],
+    "sizes": ["UK 5", "UK 6", "UK 7", "UK 8", "UK 9", "UK 10", "UK 11"],
+    "in_stock": true,
+    "stock_by_variant": {
+      "White": {"UK 6": 8, "UK 7": 12, "UK 8": 15, "UK 9": 9, "UK 10": 4},
+      "Black": {"UK 6": 5, "UK 7": 10, "UK 8": 14, "UK 9": 7, "UK 10": 6},
+      "Navy Blue": {"UK 7": 6, "UK 8": 8, "UK 9": 5}
+    },
+    "tags": ["shoes", "sneakers", "amateki", "dieta", "viatu", "bata", "footwear", "white", "black", "low top", "canvas"]
+  },
+  {
+    "id": "prod-02",
+    "title": "Rugged Twill Utility Cargo Trousers",
+    "brand": "Forge Workwear",
+    "category": "Apparel",
+    "price": 38.00,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviews": 94,
+    "image": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=800&q=80",
+    "description": "Heavyweight 100% cotton twill cargo pants with triple-stitched seams, deep reinforced side utility pockets, and relaxed straight-leg fit.",
+    "colors": ["Khaki", "Olive Green", "Charcoal Black"],
+    "sizes": ["30", "32", "34", "36", "38", "40"],
+    "in_stock": true,
+    "stock_by_variant": {
+      "Khaki": {"30": 6, "32": 10, "34": 14, "36": 8, "38": 4},
+      "Olive Green": {"32": 8, "34": 9, "36": 6},
+      "Charcoal Black": {"30": 4, "32": 12, "34": 10, "36": 7, "38": 5}
+    },
+    "tags": ["pants", "trousers", "ibhulukwe", "borokgwe", "suruali", "cargo", "khaki", "workwear", "utility"]
+  },
+  {
+    "id": "prod-03",
+    "title": "ProSound ANC Wireless Noise-Cancelling Headphones",
+    "brand": "Pulse Audio",
+    "category": "Electronics",
+    "price": 68.00,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviews": 210,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80",
+    "description": "Over-ear wireless headphones with active noise cancellation, 40-hour battery life, rapid USB-C charging, and crystal-clear call microphone.",
+    "colors": ["Matte Black", "Silver Gray"],
+    "sizes": ["One Size"],
+    "in_stock": true,
+    "stock_by_variant": {
+      "Matte Black": {"One Size": 22},
+      "Silver Gray": {"One Size": 14}
+    },
+    "tags": ["headphones", "audio", "earphones", "wireless", "bluetooth", "music", "mic", "sound"]
+  },
+  {
+    "id": "prod-04",
+    "title": "VoltCore 600W Portable Lithium Power Station",
+    "brand": "VoltCore Energy",
+    "category": "Energy",
+    "price": 280.00,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviews": 165,
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&q=80",
+    "description": "512Wh LiFePO4 battery pack with 600W pure sine wave AC outlets, 60W USB-C PD, and solar charging input. Powers Wi-Fi, laptops, TVs, and appliances during outages.",
+    "colors": ["Dark Gray / Orange", "Solid Black"],
+    "sizes": ["512Wh Unit"],
+    "in_stock": true,
+    "stock_by_variant": {
+      "Dark Gray / Orange": {"512Wh Unit": 16},
+      "Solid Black": {"512Wh Unit": 11}
+    },
+    "tags": ["power", "solar", "battery", "inverter", "backup", "loadshedding", "generator", "ugesi", "umeme", "energy"]
+  },
+  {
+    "id": "prod-05",
+    "title": "Apex Waterproof Commuter Laptop Backpack (25L)",
+    "brand": "Urban Trek",
+    "category": "Accessories",
+    "price": 32.00,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviews": 88,
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80",
+    "description": "Weatherproof ballistic nylon backpack with padded 15.6-inch laptop compartment, ergonomic breathable straps, and hidden anti-theft security pocket.",
+    "colors": ["Stealth Black", "Heather Gray", "Forest Green"],
+    "sizes": ["25 Litre"],
+    "in_stock": true,
+    "stock_by_variant": {
+      "Stealth Black": {"25 Litre": 20},
+      "Heather Gray": {"25 Litre": 12},
+      "Forest Green": {"25 Litre": 8}
+    },
+    "tags": ["bag", "backpack", "laptop", "school", "travel", "waterproof", "accessories"]
+  },
+  {
+    "id": "prod-06",
+    "title": "OmniCharge 20,000mAh 22.5W Fast-Charging Power Bank",
+    "brand": "VoltCore Energy",
+    "category": "Electronics",
+    "price": 24.00,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviews": 312,
+    "image": "https://images.unsplash.com/photo-1609592426508-cc0272b53b70?w=800&q=80",
+    "description": "High-capacity slimline power bank capable of charging smartphones 4-5 times. Features dual USB-A quick charge and bidirectional USB-C PD.",
+    "colors": ["Midnight Black", "Arctic White"],
+    "sizes": ["20,000mAh"],
+    "in_stock": true,
+    "stock_by_variant": {
+      "Midnight Black": {"20,000mAh": 35},
+      "Arctic White": {"20,000mAh": 18}
+    },
+    "tags": ["powerbank", "charger", "battery", "phone", "usb", "foni", "cellphone", "portable"]
+  }
+]

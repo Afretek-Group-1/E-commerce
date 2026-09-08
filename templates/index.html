@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mercado | Curated Independent Marketplace</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .modal-scroll::-webkit-scrollbar { width: 4px; }
+    .modal-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body class="bg-neutral-50 text-neutral-900 min-h-screen flex flex-col antialiased">
+
+  <!-- Minimal Utility Topbar -->
+  <div class="bg-neutral-950 text-neutral-300 text-xs py-2 px-4 border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span class="tracking-wide">Independent Seller Marketplace • 30-Day Free Returns & Size Exchanges</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <button id="openPolicyModalBtn" class="text-neutral-400 hover:text-white underline text-[11px]">
+          Shipping & Return Policies
+        </button>
+        <span class="text-neutral-600">|</span>
+        <a href="/seller" class="text-neutral-300 hover:text-white underline font-semibold text-[11px]">
+          Seller Studio →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-neutral-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-6">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded bg-neutral-950 text-white font-black flex items-center justify-center text-sm">M</div>
+        <span class="text-lg font-black tracking-tight text-neutral-950">Mercado</span>
+      </a>
+
+      <!-- Search Input -->
+      <div class="flex-1 max-w-md hidden sm:block">
+        <div class="relative">
+          <input 
+            type="text" 
+            id="searchInput"
+            placeholder="Search products, brands, categories..." 
+            class="w-full pl-9 pr-4 py-2 bg-neutral-100 border border-neutral-200 rounded-full text-xs focus:outline-none focus:ring-1 focus:ring-neutral-900 focus:bg-white transition-all"
+          />
+          <svg class="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-3">
+        <a href="/seller" class="hidden md:inline-flex text-xs font-semibold text-neutral-700 hover:text-neutral-950 py-2 px-3.5 rounded-lg border border-neutral-200 bg-neutral-50 hover:bg-white transition-colors">
+          + Sell on Mercado
+        </a>
+
+        <!-- Cart Button -->
+        <button id="openCartBtn" class="flex items-center gap-2 bg-neutral-950 text-white hover:bg-neutral-800 py-2 px-3.5 rounded-full text-xs font-semibold transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+          <span>Bag</span>
+          <span id="cartCountBadge" class="bg-neutral-700 text-white font-bold text-[10px] px-1.5 py-0.2 rounded-full">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Category Bar -->
+  <div class="bg-white border-b border-neutral-200 py-3 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between overflow-x-auto gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <button class="cat-filter active-cat bg-neutral-950 text-white font-semibold py-1 px-3.5 rounded-full transition-colors" data-cat="All">
+          All Products
+        </button>
+        <button class="cat-filter bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-semibold py-1 px-3.5 rounded-full transition-colors" data-cat="Footwear">
+          Footwear
+        </button>
+        <button class="cat-filter bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-semibold py-1 px-3.5 rounded-full transition-colors" data-cat="Apparel">
+          Apparel
+        </button>
+        <button class="cat-filter bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-semibold py-1 px-3.5 rounded-full transition-colors" data-cat="Electronics">
+          Electronics
+        </button>
+        <button class="cat-filter bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-semibold py-1 px-3.5 rounded-full transition-colors" data-cat="Accessories">
+          Accessories
+        </button>
+      </div>
+      <div class="text-neutral-400 hidden sm:block text-[11px]" id="totalItemsCount">
+        Showing all available products
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Catalog Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1">
+    
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Injected by JavaScript from SQLite DB -->
+    </div>
+
+    <!-- Empty Catalog State -->
+    <div id="emptyCatalog" class="hidden py-24 text-center max-w-md mx-auto space-y-3">
+      <div class="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto text-xl text-neutral-400">
+        📦
+      </div>
+      <h3 class="text-sm font-bold text-neutral-900">No products found</h3>
+      <p class="text-xs text-neutral-500">There are no products matching this filter. If you are a seller, you can list new items in the Seller Studio.</p>
+      <a href="/seller" class="inline-block bg-neutral-950 text-white font-semibold text-xs px-4 py-2 rounded-xl hover:bg-neutral-800 transition-colors">
+        Go to Seller Studio →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- NIKE-INSPIRED PRODUCT CONFIGURATOR MODAL -->
+  <div id="productModalBackdrop" class="fixed inset-0 bg-neutral-950/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full border border-neutral-200 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      
+      <!-- Header -->
+      <div class="p-4 px-6 border-b border-neutral-100 flex items-center justify-between">
+        <div>
+          <span id="modalSellerBadge" class="text-[11px] font-medium text-neutral-500">Sold by Seller</span>
+          <h3 id="modalTitle" class="font-extrabold text-base text-neutral-950 mt-0.5">Product Title</h3>
+        </div>
+        <button id="closeProductModalBtn" class="w-8 h-8 rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 flex items-center justify-center transition-colors">
+          ✕
+        </button>
+      </div>
+
+      <!-- Scrollable Body -->
+      <div class="p-6 overflow-y-auto modal-scroll space-y-6 flex-1 text-xs">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
+          
+          <!-- Image -->
+          <div class="h-72 bg-neutral-100 rounded-2xl overflow-hidden border border-neutral-100">
+            <img id="modalImage" src="" alt="" class="w-full h-full object-cover" />
+          </div>
+
+          <!-- Configuration Controls -->
+          <div class="space-y-4">
+            
+            <div class="flex items-baseline justify-between">
+              <span id="modalPrice" class="text-2xl font-black text-neutral-950">$0.00</span>
+              <span id="modalStockStatus" class="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full font-bold text-[10px]">In Stock</span>
+            </div>
+
+            <p id="modalDescription" class="text-neutral-600 leading-relaxed text-xs">
+              Product specifications and overview.
+            </p>
+
+            <!-- DYNAMIC COLOR SWATCHES SELECTOR -->
+            <div class="border-t border-neutral-100 pt-3">
+              <div class="flex items-center justify-between mb-2">
+                <label class="font-bold text-neutral-800 text-xs">Select Color:</label>
+                <span id="modalSelectedColorLabel" class="text-xs font-bold text-neutral-950"></span>
+              </div>
+              <div id="modalColorOptions" class="flex flex-wrap gap-2.5 items-center">
+                <!-- Color Swatches Injected by JS -->
+              </div>
+            </div>
+
+            <!-- DYNAMIC NIKE-STYLE SIZE BOXES GRID -->
+            <div class="border-t border-neutral-100 pt-3">
+              <div class="flex items-center justify-between mb-2">
+                <label class="font-bold text-neutral-800 text-xs">Select Size:</label>
+                <span id="modalSelectedSizeLabel" class="text-xs font-bold text-neutral-950"></span>
+              </div>
+              <div id="modalSizeOptions" class="grid grid-cols-3 gap-2">
+                <!-- Size Grid Buttons Injected by JS -->
+              </div>
+            </div>
+
+            <!-- Quantity & Add to Bag -->
+            <div class="border-t border-neutral-100 pt-3 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="font-semibold text-neutral-700">Quantity</span>
+                <div class="flex items-center gap-3">
+                  <button id="qtyMinusBtn" class="w-7 h-7 rounded-full border border-neutral-300 font-bold hover:bg-neutral-100 flex items-center justify-center">-</button>
+                  <span id="qtyDisplay" class="font-bold text-xs">1</span>
+                  <button id="qtyPlusBtn" class="w-7 h-7 rounded-full border border-neutral-300 font-bold hover:bg-neutral-100 flex items-center justify-center">+</button>
+                </div>
+              </div>
+
+              <button id="modalAddToCartBtn" class="w-full bg-neutral-950 hover:bg-neutral-800 text-white font-bold py-3.5 px-6 rounded-full transition-all text-xs tracking-wide shadow-sm hover:shadow-md">
+                Add to Bag
+              </button>
+            </div>
+
+            <!-- NIKE-STYLE POLICY ACCORDIONS (Shipping, Returns, Guarantee) -->
+            <div class="border-t border-neutral-200 pt-4 space-y-2 text-xs">
+              
+              <!-- Accordion 1: Shipping & Delivery -->
+              <details class="group border border-neutral-200 rounded-xl overflow-hidden">
+                <summary class="flex justify-between items-center p-3 font-bold text-neutral-900 cursor-pointer hover:bg-neutral-50 select-none">
+                  <span class="flex items-center gap-2">
+                    <span>📦</span>
+                    <span>Shipping & Delivery</span>
+                  </span>
+                  <span class="text-neutral-400 group-open:rotate-180 transition-transform font-mono">▼</span>
+                </summary>
+                <div class="p-3 bg-neutral-50/50 border-t border-neutral-100 text-[11px] text-neutral-600 space-y-1 leading-relaxed">
+                  <p>• <strong>Free standard shipping</strong> on all orders over $50 USD ($5 flat rate below $50).</p>
+                  <p>• <strong>Metro delivery:</strong> 1 to 3 business days. Regional: 3 to 6 business days.</p>
+                  <p id="modalDispatchTime">• <strong>Vendor dispatch:</strong> Ships within 24-48 hours with package tracking.</p>
+                </div>
+              </details>
+
+              <!-- Accordion 2: 30-Day Free Returns & Size Exchanges -->
+              <details class="group border border-neutral-200 rounded-xl overflow-hidden">
+                <summary class="flex justify-between items-center p-3 font-bold text-neutral-900 cursor-pointer hover:bg-neutral-50 select-none">
+                  <span class="flex items-center gap-2">
+                    <span>🔄</span>
+                    <span>30-Day Free Returns & Exchanges</span>
+                  </span>
+                  <span class="text-neutral-400 group-open:rotate-180 transition-transform font-mono">▼</span>
+                </summary>
+                <div class="p-3 bg-neutral-50/50 border-t border-neutral-100 text-[11px] text-neutral-600 space-y-1 leading-relaxed">
+                  <p>• <strong>Hassle-Free Size Swaps:</strong> If the size does not fit, exchange it for another size at zero cost.</p>
+                  <p>• Items must be unworn, undamaged, with original tags and packaging intact.</p>
+                  <p>• Refunds are processed within 3-5 business days directly to your original payment method or mobile money.</p>
+                </div>
+              </details>
+
+              <!-- Accordion 3: Buyer Protection & Cash on Delivery -->
+              <details class="group border border-neutral-200 rounded-xl overflow-hidden">
+                <summary class="flex justify-between items-center p-3 font-bold text-neutral-900 cursor-pointer hover:bg-neutral-50 select-none">
+                  <span class="flex items-center gap-2">
+                    <span>🛡️</span>
+                    <span>100% Buyer Protection & COD</span>
+                  </span>
+                  <span class="text-neutral-400 group-open:rotate-180 transition-transform font-mono">▼</span>
+                </summary>
+                <div class="p-3 bg-neutral-50/50 border-t border-neutral-100 text-[11px] text-neutral-600 space-y-1 leading-relaxed">
+                  <p>• <strong>Doorstep Inspection:</strong> With Cash on Delivery, you may inspect the package with the courier before handing over physical payment.</p>
+                  <p>• <strong>Authenticity Guarantee:</strong> 100% replacement or full refund if an item arrives defective or mismatched.</p>
+                </div>
+              </details>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Verified Reviews Section -->
+        <div class="border-t border-neutral-200 pt-6">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="font-bold text-sm text-neutral-950">Customer Reviews & Ratings</h4>
+            <span id="modalReviewSummary" class="text-neutral-500 font-medium">★ 5.0 (0 reviews)</span>
+          </div>
+
+          <!-- Reviews List -->
+          <div id="modalReviewsList" class="space-y-3 mb-6">
+            <!-- Injected by JS -->
+          </div>
+
+          <!-- Write a Review Form -->
+          <form id="writeReviewForm" class="p-4 bg-neutral-50 border border-neutral-200 rounded-2xl space-y-3">
+            <h5 class="font-bold text-neutral-900 text-xs">Write a Customer Review</h5>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-neutral-600 mb-1">Your Name</label>
+                <input type="text" id="reviewAuthor" required placeholder="e.g. Tendai M." class="w-full p-2 bg-white border border-neutral-200 rounded-lg text-xs" />
+              </div>
+              <div>
+                <label class="block text-neutral-600 mb-1">Rating</label>
+                <select id="reviewRating" class="w-full p-2 bg-white border border-neutral-200 rounded-lg text-xs">
+                  <option value="5">★★★★★ (5 Stars)</option>
+                  <option value="4">★★★★☆ (4 Stars)</option>
+                  <option value="3">★★★☆☆ (3 Stars)</option>
+                  <option value="2">★★☆☆☆ (2 Stars)</option>
+                  <option value="1">★☆☆☆☆ (1 Star)</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-neutral-600 mb-1">Review Feedback</label>
+              <textarea id="reviewComment" required rows="2" placeholder="Describe fit, material, and quality..." class="w-full p-2 bg-white border border-neutral-200 rounded-lg text-xs"></textarea>
+            </div>
+            <button type="submit" class="bg-neutral-900 hover:bg-neutral-800 text-white font-semibold py-2 px-4 rounded-lg text-xs transition-colors">
+              Submit Review
+            </button>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Shopping Bag Slide-out Drawer -->
+  <div id="cartDrawerBackdrop" class="fixed inset-0 bg-neutral-950/40 backdrop-blur-xs z-40 hidden transition-opacity"></div>
+  <aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-50 shadow-2xl border-l border-neutral-200 flex flex-col transform translate-x-full transition-transform duration-200 ease-out">
+    
+    <div class="p-4 border-b border-neutral-200 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-sm text-neutral-950">Your Bag</span>
+        <span id="drawerCartCount" class="text-xs text-neutral-500">(0 items)</span>
+      </div>
+      <button id="closeCartBtn" class="text-neutral-400 hover:text-neutral-700 p-1">
+        ✕
+      </button>
+    </div>
+
+    <!-- Items List -->
+    <div id="cartItemsList" class="flex-1 overflow-y-auto p-4 space-y-3 modal-scroll">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Checkout Details & Submit -->
+    <div class="p-4 bg-neutral-50 border-t border-neutral-200 space-y-3 text-xs">
+      
+      <div class="flex justify-between font-bold text-sm text-neutral-950">
+        <span>Subtotal:</span>
+        <span id="cartTotalDisplay">$0.00</span>
+      </div>
+
+      <div class="space-y-2 border-t border-neutral-200 pt-3">
+        <div>
+          <label class="block text-neutral-700 font-semibold mb-1">Full Name</label>
+          <input type="text" id="orderCustName" required placeholder="Recipient Full Name" class="w-full p-2 bg-white border border-neutral-200 rounded-lg text-xs" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-neutral-700 font-semibold mb-1">Email</label>
+            <input type="email" id="orderCustEmail" required placeholder="name@domain.com" class="w-full p-2 bg-white border border-neutral-200 rounded-lg text-xs" />
+          </div>
+          <div>
+            <label class="block text-neutral-700 font-semibold mb-1">Phone</label>
+            <input type="text" id="orderCustPhone" placeholder="+27..." class="w-full p-2 bg-white border border-neutral-200 rounded-lg text-xs" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-neutral-700 font-semibold mb-1">Delivery Address</label>
+          <input type="text" id="orderCustAddress" required placeholder="Street Address, City, Postal Code" class="w-full p-2 bg-white border border-neutral-200 rounded-lg text-xs" />
+        </div>
+        <div>
+          <label class="block text-neutral-700 font-semibold mb-1">Payment</label>
+          <select id="orderCustPayment" class="w-full p-2 bg-white border border-neutral-200 rounded-lg text-xs">
+            <option value="Cash on Delivery">Cash on Delivery (Inspect at door)</option>
+            <option value="Mobile Money">Mobile Money (M-Pesa / MoMo)</option>
+            <option value="Card">Debit / Credit Card</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="submitOrderBtn" class="w-full bg-neutral-950 hover:bg-neutral-800 text-white font-bold py-3.5 px-4 rounded-full text-xs transition-colors shadow-sm">
+        Complete Checkout
+      </button>
+
+    </div>
+
+  </aside>
+
+  <!-- STANDALONE POLICY & KNOWLEDGE BASE MODAL -->
+  <div id="policyModalBackdrop" class="fixed inset-0 bg-neutral-950/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full border border-neutral-200 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+      
+      <div class="p-5 border-b border-neutral-100 flex items-center justify-between">
+        <div>
+          <h3 class="font-extrabold text-base text-neutral-950">Mercado Official Policies & FAQ</h3>
+          <p class="text-[11px] text-neutral-500">Official terms governing purchases, deliveries, returns, and buyer protection.</p>
+        </div>
+        <button id="closePolicyModalBtn" class="w-8 h-8 rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-neutral-800 flex items-center justify-center">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto modal-scroll space-y-6 text-xs text-neutral-700 leading-relaxed">
+        
+        <!-- Returns -->
+        <div class="space-y-2">
+          <h4 class="font-bold text-sm text-neutral-950 flex items-center gap-2">
+            <span>🔄</span> 30-Day Free Returns & Size Exchanges
+          </h4>
+          <p>We understand that purchasing shoes and apparel online requires accurate sizing. Mercado offers a <strong>free 30-day exchange window</strong> for any incorrect sizes.</p>
+          <ul class="list-disc pl-5 space-y-1 text-neutral-600 text-[11px]">
+            <li>Items must be unworn, undamaged, with original tags intact.</li>
+            <li>Shoes must be tried on indoors on clean carpet or flooring.</li>
+            <li>Once returned, exchanges are dispatched within 24 hours, or refunds credited within 3-5 business days.</li>
+          </ul>
+        </div>
+
+        <!-- Shipping -->
+        <div class="border-t border-neutral-100 pt-4 space-y-2">
+          <h4 class="font-bold text-sm text-neutral-950 flex items-center gap-2">
+            <span>📦</span> Shipping Timelines & Rates
+          </h4>
+          <p>Deliveries are managed directly by certified local and regional couriers with live SMS tracking.</p>
+          <ul class="list-disc pl-5 space-y-1 text-neutral-600 text-[11px]">
+            <li><strong>Free Shipping:</strong> Automatically applied to all shopping bags over $50 USD.</li>
+            <li><strong>Standard Delivery:</strong> $5.00 flat rate for orders under $50 USD.</li>
+            <li><strong>Local/Metro Areas:</strong> 1 to 3 business days.</li>
+            <li><strong>Regional/Outlying:</strong> 3 to 6 business days.</li>
+          </ul>
+        </div>
+
+        <!-- Payments -->
+        <div class="border-t border-neutral-100 pt-4 space-y-2">
+          <h4 class="font-bold text-sm text-neutral-950 flex items-center gap-2">
+            <span>💵</span> Cash on Delivery & Payment Security
+          </h4>
+          <p>To ensure 100% financial security, we support <strong>Cash on Delivery (COD)</strong> alongside secure digital payment methods (Mobile Money, Visa, Mastercard).</p>
+          <p class="text-[11px] text-neutral-600 bg-neutral-50 p-2.5 rounded-xl border border-neutral-200">
+            <strong>Customer Right:</strong> When opting for Cash on Delivery, you are entitled to inspect the sealed outer parcel in front of the courier to verify package integrity before handing over payment.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Order Confirmed Modal -->
+  <div id="orderSuccessModal" class="fixed inset-0 bg-neutral-950/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 border border-neutral-200 shadow-2xl text-center space-y-4">
+      <div class="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto text-xl font-bold">
+        ✓
+      </div>
+      <h3 class="text-base font-bold text-neutral-950">Order Confirmed</h3>
+      <p class="text-xs text-neutral-600 leading-relaxed">
+        Your order has been recorded in the database and routed to the respective sellers.
+      </p>
+      <div class="p-3 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-800 text-left font-mono space-y-1">
+        <div><strong>Order ID:</strong> <span id="confirmedOrderId">ORD-0000</span></div>
+        <div><strong>Recipient:</strong> <span id="confirmedCustomerName">—</span></div>
+        <div><strong>Total:</strong> <span id="confirmedTotal">$0.00</span></div>
+      </div>
+      <button id="closeOrderSuccessBtn" class="w-full bg-neutral-950 hover:bg-neutral-800 text-white font-bold py-2.5 rounded-full text-xs transition-colors">
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+
+  <!-- Modern Footer -->
+  <footer class="bg-white border-t border-neutral-200 mt-20 text-xs text-neutral-500 py-12 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded bg-neutral-950 text-white font-black flex items-center justify-center text-xs">M</div>
+          <span class="font-extrabold text-neutral-950 text-sm">Mercado</span>
+        </div>
+        <p class="text-[11px] text-neutral-500 leading-relaxed">
+          The curated marketplace connecting independent sellers directly with everyday shoppers.
+        </p>
+      </div>
+
+      <div class="space-y-1.5">
+        <span class="font-bold text-neutral-900 block mb-2">Customer Policies</span>
+        <a href="#" onclick="openPolicyModal(); return false;" class="block hover:text-neutral-900">30-Day Free Returns</a>
+        <a href="#" onclick="openPolicyModal(); return false;" class="block hover:text-neutral-900">Shipping & Delivery Times</a>
+        <a href="#" onclick="openPolicyModal(); return false;" class="block hover:text-neutral-900">Cash on Delivery Terms</a>
+        <a href="#" onclick="openPolicyModal(); return false;" class="block hover:text-neutral-900">Buyer Protection Guarantee</a>
+      </div>
+
+      <div class="space-y-1.5">
+        <span class="font-bold text-neutral-900 block mb-2">Sellers & Merchants</span>
+        <a href="/seller" class="block hover:text-neutral-900">Open a Store Studio</a>
+        <a href="/seller" class="block hover:text-neutral-900">Merchant Dashboard</a>
+        <a href="/seller" class="block hover:text-neutral-900">Inventory & Orders Management</a>
+      </div>
+
+      <div class="space-y-1.5">
+        <span class="font-bold text-neutral-900 block mb-2">Platform Trust</span>
+        <p class="text-[11px] leading-relaxed">All merchants undergo business identity verification. Full refund or replacement on defective items.</p>
+        <p class="text-[10px] text-neutral-400 mt-2">© 2026 Mercado Inc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Concierge Launcher -->
+  <button id="conciergeLauncher" class="fixed bottom-6 right-6 z-40 bg-neutral-950 hover:bg-neutral-800 text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl flex items-center gap-3 border border-neutral-800 hover:scale-105 active:scale-95 transition-all duration-200 group">
+    <div class="relative flex items-center justify-center">
+      <svg class="w-5 h-5 text-emerald-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+      </svg>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-neutral-950 animate-pulse"></span>
+    </div>
+    <div class="hidden sm:flex flex-col text-left">
+      <span class="text-xs font-black tracking-tight leading-tight">Shopping Assistant</span>
+      <span class="text-[10px] text-neutral-400 font-medium">Live Inventory & Sizing</span>
+    </div>
+  </button>
+
+  <!-- Concierge Chat Panel (Slide-up / Floating) -->
+  <div id="conciergePanel" class="fixed bottom-6 right-6 z-50 w-[92vw] sm:w-[420px] h-[580px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-neutral-200 flex flex-col overflow-hidden hidden transition-all duration-200">
+    
+    <!-- Top Header -->
+    <div class="p-4 bg-neutral-950 text-white flex items-center justify-between border-b border-neutral-800 flex-shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center text-emerald-400">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h4 class="font-bold text-xs tracking-tight">Mercado Concierge</h4>
+            <span class="inline-flex items-center gap-1 text-[9px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800/60 px-1.5 py-0.5 rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Live DB
+            </span>
+          </div>
+          <p class="text-[10px] text-neutral-400">Multilingual Pan-African Assistant</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-1">
+        <button id="clearChatBtn" title="Clear Conversation" class="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+          </svg>
+        </button>
+        <button id="closeConciergeBtn" title="Close Assistant" class="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages Container -->
+    <div id="conciergeMessages" class="flex-1 overflow-y-auto modal-scroll p-4 space-y-4 bg-neutral-50/60 text-xs">
+      <!-- Dynamic Messages Injected by JS -->
+    </div>
+
+    <!-- Dynamic Suggestion Chips Bar -->
+    <div id="conciergeSuggestions" class="px-4 py-2 bg-white border-t border-neutral-100 flex items-center gap-2 overflow-x-auto modal-scroll flex-shrink-0 hidden">
+      <!-- Injected Dynamically by JS -->
+    </div>
+
+    <!-- Bottom Input Area with Voice Dictation -->
+    <div class="p-3 bg-white border-t border-neutral-200 flex-shrink-0">
+      <form id="conciergeForm" class="flex items-center gap-2">
+        
+        <!-- Voice Input Microphone Button -->
+        <button 
+          type="button" 
+          id="voiceMicBtn" 
+          title="Voice Search (Speak in any language)" 
+          class="w-9 h-9 flex-shrink-0 rounded-full border border-neutral-200 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 flex items-center justify-center transition-all relative"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 003-3V5a3 3 0 00-6 0v6a3 3 0 003 3z"></path>
+          </svg>
+          <!-- Listening indicator ring -->
+          <span id="micListeningPulse" class="hidden absolute inset-0 rounded-full border-2 border-red-500 animate-ping"></span>
+        </button>
+
+        <!-- Text Input -->
+        <input 
+          type="text" 
+          id="conciergeInput" 
+          placeholder="Ask in English, Zulu, Swahili, Sesotho..." 
+          autocomplete="off"
+          class="flex-1 min-w-0 bg-neutral-100 focus:bg-white border border-neutral-200 focus:border-neutral-900 rounded-full px-4 py-2 text-xs text-neutral-900 placeholder:text-neutral-400 focus:outline-none transition-all"
+        />
+
+        <!-- Send Button -->
+        <button 
+          type="submit" 
+          id="conciergeSendBtn" 
+          class="w-9 h-9 flex-shrink-0 rounded-full bg-neutral-950 hover:bg-neutral-800 text-white flex items-center justify-center transition-transform active:scale-95 disabled:opacity-40"
+        >
+          <svg class="w-4 h-4 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Client Script -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

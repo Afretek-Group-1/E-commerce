@@ -1,0 +1,50 @@
+[
+  {
+    "id": "store-ke",
+    "name": "Nairobi Renewables & SolarTech",
+    "country": "Kenya",
+    "region": "East Africa",
+    "city": "Nairobi",
+    "currency": "USD",
+    "rating": 4.9,
+    "verified": true,
+    "category": "Energy & Hardware",
+    "shipping": "Pan-African Express Air & Land Logistics"
+  },
+  {
+    "id": "store-ng",
+    "name": "Lagos Tech & Telecommunications",
+    "country": "Nigeria",
+    "region": "West Africa",
+    "city": "Lagos",
+    "currency": "USD",
+    "rating": 4.8,
+    "verified": true,
+    "category": "Consumer Electronics",
+    "shipping": "Regional Hub & Cross-Border Delivery"
+  },
+  {
+    "id": "store-za",
+    "name": "Southern Industrial Wear & Goods",
+    "country": "South Africa",
+    "region": "Southern Africa",
+    "city": "Johannesburg",
+    "currency": "USD",
+    "rating": 4.9,
+    "verified": true,
+    "category": "Apparel & Industrial",
+    "shipping": "SADC Regional Freight"
+  },
+  {
+    "id": "store-rw",
+    "name": "Kigali AgriEquipment & Commodities",
+    "country": "Rwanda",
+    "region": "East & Central Africa",
+    "city": "Kigali",
+    "currency": "USD",
+    "rating": 4.7,
+    "verified": true,
+    "category": "AgriTech & Supply",
+    "shipping": "East Africa Corridor Courier"
+  }
+]

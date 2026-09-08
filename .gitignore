@@ -1,0 +1,26 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Environment variables & secrets (CRITICAL for Azure API keys)
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db
+.DS_Store
